@@ -58,6 +58,18 @@ namespace WebAddressbookTests
                 lastname = value;
             }
         }
+
+        public string Nickname
+        {
+            get
+            {
+                return nickname;
+            }
+            set
+            {
+                nickname = value;
+            }
+        }
         public string Middlename
         {
             get
