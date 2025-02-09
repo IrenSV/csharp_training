@@ -44,12 +44,8 @@ namespace WebAddressbookTests
         }
         public ContactHelper FillContactForm(ContactData contact)
         {
-            driver.FindElement(By.Name("firstname")).Click();
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
-            driver.FindElement(By.Name("lastname")).Click();
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
+            Type(By.Name("firstname"), contact.Firstname);
+            Type(By.Name("lastname"), contact.Lastname);
             return this;
         }
         public ContactHelper SubmitContactCreation()
@@ -64,9 +60,20 @@ namespace WebAddressbookTests
         }
         private ContactHelper SelectContact()
         {
+            if (OpenContactList())
+            {
+                ContactData contact = new ContactData("Имя", "Фамилия");
+                Create(contact);
+            }
             driver.FindElement(By.Name("selected[]")).Click();
             return this;
         }
+
+        private bool OpenContactList()
+        {
+            return !IsElementPresent(By.Name("selected[]"));
+        }
+
         private ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
@@ -74,6 +81,11 @@ namespace WebAddressbookTests
         }
         private ContactHelper InitContactModification()
         {
+            if (OpenContactList())
+            {
+                ContactData contact = new ContactData("Имя", "Фамилия");
+                Create(contact);
+            }
             driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
             driver.FindElement(By.XPath("//form[@action='edit.php']")).Click();
             return this;
