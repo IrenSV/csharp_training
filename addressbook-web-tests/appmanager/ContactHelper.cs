@@ -22,9 +22,13 @@ namespace WebAddressbookTests
             ReturnToMainPage();
             return this;
         }
-        public ContactHelper Modify(int v, ContactData newData)
+        public ContactHelper Check()
         {
             CheckContacts();
+            return this;
+        }
+        public ContactHelper Modify(int v, ContactData newData)
+        {
             InitContactModification();
             FillContactForm(newData);
             SubmitContactModification();
@@ -33,7 +37,6 @@ namespace WebAddressbookTests
         }
         public ContactHelper Remove()
         {
-            CheckContacts();
             SelectContact();
             RemoveContact();
 
