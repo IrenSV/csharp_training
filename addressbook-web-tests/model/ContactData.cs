@@ -8,9 +8,7 @@ namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        private string firstname;
         private string middlename = "";
-        private string lastname;
         private string nickname = "";
         private string photo = "";
         private string delete = "";
@@ -31,8 +29,8 @@ namespace WebAddressbookTests
 
         public ContactData(string firstname, string lastname)
         {
-            this.firstname = firstname;
-            this.lastname = lastname;
+            Firstname = firstname;
+            Lastname = lastname;
         }
 
         public bool Equals(ContactData other)
@@ -65,227 +63,27 @@ namespace WebAddressbookTests
             }
             return Firstname.CompareTo(other.Firstname);
         }
-        public string Firstname
-        {
-            get
-            {
-                return firstname;
-            }
-            set
-            {
-                firstname = value;
-            }
-        }
+        public string Firstname { get; set; }
 
-        public string Lastname
-        {
-            get
-            {
-                return lastname;
-            }
-            set
-            {
-                lastname = value;
-            }
-        }
+        public string Lastname { get; set; }
 
-        public string Nickname
-        {
-            get
-            {
-                return nickname;
-            }
-            set
-            {
-                nickname = value;
-            }
-        }
-        public string Middlename
-        {
-            get
-            {
-                return middlename;
-            }
-            set
-            {
-                middlename = value;
-            }
-        }
-        public string Photo
-        {
-            get
-            {
-                return photo;
-            }
-            set
-            {
-                photo = value;
-            }
-        }
-        public string Delete
-        {
-            get
-            {
-                return delete;
-            }
-            set
-            {
-                delete = value;
-            }
-        }
-        public string Company
-        {
-            get
-            {
-                return company;
-            }
-            set
-            {
-                company = value;
-            }
-        }
-        public string Title
-        {
-            get
-            {
-                return title;
-            }
-            set
-            {
-                title = value;
-            }
-        }
-        public string Address
-        {
-            get
-            {
-                return address;
-            }
-            set
-            {
-                address = value;
-            }
-        }
-        public string Telephone
-        {
-            get
-            {
-                return telephone;
-            }
-            set
-            {
-                telephone = value;
-            }
-        }
-        public string Home
-        {
-            get
-            {
-                return home;
-            }
-            set
-            {
-                home = value;
-            }
-        }
-        public string Mobile
-        {
-            get
-            {
-                return mobile;
-            }
-            set
-            {
-                mobile = value;
-            }
-        }
-        public string Work
-        {
-            get
-            {
-                return work;
-            }
-            set
-            {
-                work = value;
-            }
-        }
-        public string Fax
-        {
-            get
-            {
-                return fax;
-            }
-            set
-            {
-                fax = value;
-            }
-        }
-        public string Email
-        {
-            get
-            {
-                return email;
-            }
-            set
-            {
-                email = value;
-            }
-        }
-        public string Emsil2
-        {
-            get
-            {
-                return email2;
-            }
-            set
-            {
-                email2 = value;
-            }
-        }
-        public string Emil3
-        {
-            get
-            {
-                return email3;
-            }
-            set
-            {
-                email3 = value;
-            }
-        }
-        public string Homepage
-        {
-            get
-            {
-                return homepage;
-            }
-            set
-            {
-                homepage = value;
-            }
-        }
-        public string Birthday
-        {
-            get
-            {
-                return birthday;
-            }
-            set
-            {
-                birthday = value;
-            }
-        }
-        public string Anniversary
-        {
-            get
-            {
-                return anniversary;
-            }
-            set
-            {
-                anniversary = value;
-            }
-        }
+        public string Nickname { get; set; }
+        public string Middlename { get; set; }
+        public string Photo { get; set; }
+        public string Delete { get; set; }
+        public string Company { get; set; }
+        public string Title { get; set; }
+        public string Address { get; set; }
+        public string Telephone { get; set; }
+        public string Home { get; set; }
+        public string Mobile { get; set; }
+        public string Work { get; set; }
+        public string Fax { get; set; }
+        public string Email { get; set; }
+        public string Email2 { get; set; }
+        public string Email3 { get; set; }
+        public string Homepage { get; set; }
+        public string Birthday { get; set; }
+        public string Anniversary { get; set; }
     }
 }
