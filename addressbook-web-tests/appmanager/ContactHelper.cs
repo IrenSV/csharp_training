@@ -107,11 +107,16 @@ namespace WebAddressbookTests
         public List<ContactData> GetContactList()
         {
             List<ContactData> contacts = new List<ContactData>();
-            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+            ICollection<IWebElement> elements = driver.FindElements(By.XPath("//*[@id=\"maintable\"]/tbody/tr[@name=\"entry\"]"));
             foreach (IWebElement element in elements)
             {
-                contacts.Add(new ContactData(element.Text, element.Text));
+                String collectLastname = element.FindElement(By.XPath("td[2]")).Text;
+                String collectFirstname = element.FindElement(By.XPath("td[3]")).Text;
+
+                contacts.Add(new ContactData(collectFirstname, collectLastname));
             }
+
+            return contacts;
             return contacts;
         }
     }
