@@ -39,7 +39,6 @@ namespace WebAddressbookTests
         {
             SelectContact(v);
             RemoveContact();
-
             return this;
         }
         public ContactHelper InitNewContactCreation()
@@ -86,6 +85,7 @@ namespace WebAddressbookTests
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            driver.FindElement(By.LinkText("home")).Click();
             contactCash = null;
             return this;
         }

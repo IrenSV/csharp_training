@@ -123,7 +123,7 @@ namespace WebAddressbookTests
                 {
                     groupCash.Add(new GroupData(element.Text)
                     {
-                        Id = element.FindElement(By.TagName("input").GetAttribute("value"))
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
                     });
                 }
             }
