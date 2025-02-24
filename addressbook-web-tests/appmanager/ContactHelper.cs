@@ -29,7 +29,7 @@ namespace WebAddressbookTests
         }
         public ContactHelper Modify(int v, ContactData newData)
         {
-            InitContactModification();
+            InitContactModification(v);
             FillContactForm(newData);
             SubmitContactModification();
             ReturnToMainPage();
@@ -54,7 +54,7 @@ namespace WebAddressbookTests
         }
         public ContactHelper SubmitContactCreation()
         {
-            driver.FindElement(By.XPath("//div[@id='content']/form/input[20]")).Click();
+            driver.FindElement(By.Name("update")).Click();
             contactCash = null;
             return this;
         }
@@ -89,15 +89,9 @@ namespace WebAddressbookTests
             contactCash = null;
             return this;
         }
-        public ContactHelper InitContactModification()
+        public ContactHelper InitContactModification(int index)
         {
-            if (OpenContactList())
-            {
-                ContactData contact = new ContactData("Имя", "Фамилия");
-                Create(contact);
-            }
-            driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
-            driver.FindElement(By.XPath("//form[@action='edit.php']")).Click();
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + (index + 1) +"]/td[8]/a/img")).Click(); 
             return this;
         }
         public ContactHelper SubmitContactModification()
