@@ -15,10 +15,9 @@ namespace WebAddressbookTests
         private string company = "";
         private string title = "";
         private string address = "";
-        private string telephone = "";
-        private string home = "";
-        private string mobile = "";
-        private string work = "";
+        private string homePhone = "";
+        private string mobilePhone = "";
+        private string workPhone = "";
         private string fax = "";
         private string email = "";
         private string email2 = "";
@@ -26,6 +25,8 @@ namespace WebAddressbookTests
         private string homepage = "";
         private string birthday = "";
         private string anniversary = "";
+        private string allPhones;
+        private string allEmails;
 
         public ContactData(string firstname, string lastname)
         {
@@ -79,14 +80,56 @@ namespace WebAddressbookTests
         public string Company { get; set; }
         public string Title { get; set; }
         public string Address { get; set; }
-        public string Telephone { get; set; }
-        public string Home { get; set; }
-        public string Mobile { get; set; }
-        public string Work { get; set; }
+        public string HomePhone { get; set; }
+        public string MobilePhone { get; set; }
+        public string WorkPhone { get; set; }
+        public string AllPhones
+        {
+            get
+            {
+                if (allPhones != null)
+                {
+                    return allPhones;
+                }
+                else 
+                {
+                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone)).Trim();
+                }
+            }
+            set
+            {
+                allPhones = value;
+            }
+        }
+
+        private string CleanUp(string phone)
+        {
+            if(phone == null || phone =="")
+            {
+                return "";
+            }
+            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n"; 
+        }
+
         public string Fax { get; set; }
         public string Email { get; set; }
         public string Email2 { get; set; }
         public string Email3 { get; set; }
+        public string AllEmails
+        {
+            get
+            {
+                if (allEmails != null)
+                {
+                    return allEmails;
+                }
+                    return (CleanUp(Email) + CleanUp(Email2) + CleanUp(Email3)).Trim();
+            }
+            set
+            {
+                allEmails = value;
+            }
+        }
         public string Homepage { get; set; }
         public string Birthday { get; set; }
         public string Anniversary { get; set; }
