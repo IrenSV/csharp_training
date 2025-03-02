@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using System.Text.RegularExpressions;
+
 
 
 namespace WebAddressbookTests
@@ -29,7 +33,7 @@ namespace WebAddressbookTests
         }
         public ContactHelper Modify(int v, ContactData newData)
         {
-            InitContactModification(v);
+            InitContactModification(v - 1);
             FillContactForm(newData);
             SubmitContactModification();
             ReturnToMainPage();
@@ -167,6 +171,23 @@ namespace WebAddressbookTests
                 Email2 = email2,
                 Email3 = email3
             };
+        }
+        public int GetNumberOfSearchResults()
+        {
+            manager.Navigator.GoToHomePage();
+            string text = driver.FindElement(By.TagName("label")).Text;
+            Match m = new Regex(@"\d+").Match(text);
+            return Int32.Parse(m.Value);
+        }
+
+        public string GetContactInformationFromDetails(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"))[6].
+                FindElement(By.TagName("a")).Click();
+
+            string allInfoToContact = driver.FindElement(By.CssSelector("div#content")).Text;
+            return allInfoToContact.Replace("H: ", "").Replace("M: ", "").Replace("W: ", "").Replace("F: ", "");
         }
     }
 }

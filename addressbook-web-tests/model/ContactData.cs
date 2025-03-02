@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
 {
@@ -27,6 +28,10 @@ namespace WebAddressbookTests
         private string anniversary = "";
         private string allPhones;
         private string allEmails;
+        private string allInfo;
+        private string name;
+        private string phones;
+        private string emails;
 
         public ContactData(string firstname, string lastname)
         {
@@ -108,7 +113,7 @@ namespace WebAddressbookTests
             {
                 return "";
             }
-            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n"; 
+            return Regex.Replace(phone, "[ -()]", "")  + "\r\n"; 
         }
 
         public string Fax { get; set; }
@@ -133,5 +138,93 @@ namespace WebAddressbookTests
         public string Homepage { get; set; }
         public string Birthday { get; set; }
         public string Anniversary { get; set; }
+        public string AllInfo
+        {
+            get
+            {
+                if (allInfo != null)
+                {
+                    return allInfo;
+                }
+                return (Name + "\r\n" + Address + "\r\n" + Phones + "\r\n" + "\r\n" + Emails + "\r\n").Trim();
+            }
+            set
+            {
+                allInfo = value;
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                if (name != null)
+                {
+                    return name;
+                }
+                return (CleanUpEmptyName(Firstname) + " " + CleanUpEmptyName(Lastname)).Trim();
+            }
+            set
+            {
+                name = value;
+            }
+        }
+
+        public string Phones
+        {
+            get
+            {
+                if (phones != null)
+                {
+                    return phones;
+                }
+                return (CleanUpEmpty(HomePhone) + CleanUpEmpty(mobilePhone) + CleanUpEmpty(WorkPhone) + CleanUpEmpty(Fax)).Trim();
+            }
+            set
+            {
+                phones = value;
+            }
+        }
+
+        public string Emails
+        {
+            get
+            {
+                if (emails != null)
+                {
+                    return emails;
+                }
+                return (CleanUpEmpty(Email) + CleanUpEmpty(Email2) + CleanUpEmpty(Email3)).Trim();
+            }
+            set
+            {
+                emails = value;
+            }
+        }
+
+
+        private string CleanUpEmptyName(string nameInfo)
+        {
+            {
+                {
+                    if (nameInfo == null || nameInfo == "")
+                    {
+                        return "";
+                    }
+                    return nameInfo;
+                }
+            }
+        }
+
+        private string CleanUpEmpty(string info)
+        {
+            {
+                if (info == null || info == "")
+                {
+                    return "";
+                }
+                return info + "\r\n";
+            }
+        }
     }
 }
