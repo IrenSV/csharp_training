@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactModificationTests : AuthTestBase
+    public class ContactModificationTests : ContactTestBase
     {
         [Test]
         public void ContactModificationTest()
@@ -16,18 +16,27 @@ namespace WebAddressbookTests
             app.Contacts.Check();
             ContactData newData = new ContactData("jjj", "ddd");
 
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
+            ContactData toBeModify = oldContacts[0];
 
-            app.Contacts.Modify(1, newData);
+            app.Contacts.Modify(toBeModify, newData);
 
             Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());
 
-            List<ContactData> newContacts = app.Contacts.GetContactList();
+            List<ContactData> newContacts = ContactData.GetAll();
             oldContacts[0].Lastname = newData.Lastname;
             oldContacts[0].Firstname = newData.Firstname;
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
+
+            foreach (ContactData contact in newContacts)
+            {
+                if (contact.Id == toBeModify.Id)
+                {
+                    Assert.AreEqual(newData.Name, contact.Name);
+                }
+            }
         }
 
     }
