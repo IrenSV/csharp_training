@@ -38,13 +38,11 @@ namespace WebAddressbookTests
         public ContactData()
         {
         }
-
         public ContactData(string firstname, string lastname)
         {
             Firstname = firstname;
             Lastname = lastname;
         }
-
         public bool Equals(ContactData other)
         {
             if (Object.ReferenceEquals(other, null))
@@ -178,6 +176,9 @@ namespace WebAddressbookTests
         [Column(Name = "id"), PrimaryKey, Identity]
         public string Id { get; set; }
 
+        [Column(Name = "deprecated")]
+        public string Deprecated { get; set; }
+
         public string AllInfo
         {
             get
@@ -270,7 +271,9 @@ namespace WebAddressbookTests
         {
             using (AddressBookDB db = new AddressBookDB())
             {
-                return (from g in db.Contacts select g).ToList();
+                return (from c in db.Contacts
+                        //.Where(x => x.Deprecated == "0000-00-00 00:00:00")
+                        select c).ToList();
             }
         }
     }
