@@ -21,7 +21,7 @@ namespace mantis_tests
         }
         private void OpenPageProjectManagement()
         {
-            driver.FindElement(By.XPath("//div[@id='sidebar']/ul/li[7]/a/i")).Click();
+            driver.FindElement(By.LinkText("управление")).Click();
             driver.FindElement(By.LinkText("Управление проектами")).Click();
         }
         private void ProjectCreation()

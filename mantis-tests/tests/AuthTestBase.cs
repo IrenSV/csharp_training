@@ -13,7 +13,6 @@ namespace mantis_tests
         [OneTimeSetUp]
         public void SetupLogin()
         {
-            app.Navigator.OpenHomePage();
             app.Auth.Login(new AccountData("administrator", "root"));
         }
     }

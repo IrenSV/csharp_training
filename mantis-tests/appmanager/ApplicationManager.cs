@@ -24,7 +24,7 @@ namespace mantis_tests
         {
             driver = new FirefoxDriver();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
-            baseURL = "http://localhost/mantisbt-2.2.0/login_page.php";
+            baseURL = "http://localhost/mantisbt-2.2.0";
             loginHelper = new LoginHelper(this);
             projectManagementHelper = new ProjectManagementHelper(this);
             navigator = new NavigationHelper(this, baseURL);
