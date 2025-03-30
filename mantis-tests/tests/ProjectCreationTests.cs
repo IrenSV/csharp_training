@@ -13,8 +13,9 @@ namespace mantis_tests
     public class ProjectCreationTests : AuthTestBase
     {
         [Test]
-        public void ProjectCreationTest(ProjectData project)
+        public void ProjectCreationTest()
         {
+            ProjectData project = new ProjectData("Проект1");
             app.Projects.Create(project);
         }
     }
