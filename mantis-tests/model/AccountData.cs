@@ -16,7 +16,7 @@ namespace mantis_tests
             this.name = name;
             this.password = password;
         }
-
+        public string Id { get; set; }
         public string Name
         {
             get

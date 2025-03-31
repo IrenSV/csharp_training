@@ -16,5 +16,13 @@ namespace WebAddressbookTests
         [Column(Name = "id")]
         public string ContactId { get; set; }
 
+        public static List<GroupContactRelation> GetAll()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from ctog in db.GCR select ctog).ToList();
+            }
+        }
+
     }
 }

@@ -27,7 +27,7 @@ namespace mantis_tests
         //    {
         //        if (OpenNameList(project))
         //        {
-        //            System.Console.Error.WriteLine();
+        //            Remove();
         //        }
         //    }
         //    return this;

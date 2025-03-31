@@ -9,6 +9,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using System.Text.RegularExpressions;
+using Google.Protobuf.WellKnownTypes;
 
 
 
@@ -267,6 +268,39 @@ namespace WebAddressbookTests
         private void CommitRemovalContactFromGroup()
         {
             driver.FindElement(By.Name("remove")).Click();
+        }
+
+        public void CheckContactsInNoneGroup()
+        {
+            manager.Navigator.GoToHomePage();
+            ShowContactsInNoneGroups();
+            int contacts = GetContactCount();
+            if (contacts == 0)
+            {
+                ContactData newContact = new ContactData("aa", "bb");
+                Create(newContact);
+            }
+        }
+
+        public void ShowContactsInNoneGroups()
+        {
+            manager.Navigator.GoToHomePage();
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[none]");
+        }
+
+        public void AddAnyContactToAnyGroup()
+        {
+            GroupContactRelation grc = GroupContactRelation.GetAll()[0];
+            if (grc == null)
+            {
+                GroupData group = GroupData.GetAll()[0];
+                List<ContactData> oldList = group.GetContacts();
+
+                ContactData contact = ContactData.GetAll().Except(oldList).First();
+
+                AddContactToGroup(contact, group);
+            }
+            return;
         }
     }
 }
