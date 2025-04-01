@@ -290,8 +290,8 @@ namespace WebAddressbookTests
 
         public void AddAnyContactToAnyGroup()
         {
-            GroupContactRelation grc = GroupContactRelation.GetAll()[0];
-            if (grc == null)
+            int counts = GroupContactRelation.GetAll().Count;
+            if (counts == 0)
             {
                 GroupData group = GroupData.GetAll()[0];
                 List<ContactData> oldList = group.GetContacts();
