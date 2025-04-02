@@ -80,33 +80,38 @@ namespace mantis_tests
         public void APICreate(AccountData account, ProjectData project)
         {
             Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
-            Mantis.ProjectData projectName = new Mantis.ProjectData();
-            client.mc_project_add(account.Name, account.Password, projectName);
+            Mantis.ProjectData projectData = new Mantis.ProjectData();
+            projectData.name = project.Name;
+            client.mc_project_add(account.Name, account.Password, projectData);
         }
 
         private ProjectManagementHelper CheckProjects()
         {
-            if (OpenProjectList())
-            {
-                AccountData account = new AccountData("administrator", "root");
-                ProjectData project = new ProjectData("Новый проект");
-                APICreate(account, project);
-            }
+            OpenProjectList();
+            driver.FindElement(By.LinkText("Проекты")).Click();
             return this;
         }
-        private bool OpenProjectList()
+        private void OpenProjectList()
         {
-            return !IsElementPresent(By.XPath("//div[@id='main-container']/div[2]/div[2]/div/div/div[2]/div[2]/div/div/table/tbody/tr"));
+            Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
+            var projects = client.mc_projects_get_user_accessible("administrator", "root");
+            if (projects == null || projects.Length == 0)
+            {
+                AccountData accountName = new AccountData("administrator", "root");
+                ProjectData project = new ProjectData("Новый проект");
+                APICreate(accountName, project);
+            }
         }
 
         private ProjectManagementHelper SelectProject(int index)
         {
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             driver.FindElement(By.XPath("//div[@id='main-container']/div[2]/div[2]/div/div/div[2]/div[2]/div/div/table/tbody/tr[" + index + "]/td/a")).Click();
             return this;
         }
         private ProjectManagementHelper RemoveProject()
         {
-            driver.FindElement(By.XPath("//input[@value='Удалить проект']")).Click();
+            driver.FindElement(By.XPath("//form[@id='manage-proj-update-form']/div/div[3]/button[2]")).Click();
             return this;
         }
         private ProjectManagementHelper SubmitRemoveProject()

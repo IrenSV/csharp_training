@@ -3313,7 +3313,7 @@ namespace mantis_tests.Mantis {
         private bool inherit_globalField;
         
         private bool inherit_globalFieldSpecified;
-        
+
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(DataType="integer")]
         public string id {
