@@ -50,7 +50,7 @@ namespace mantis_tests
 
         private IWebDriver OpenAppAndLogin()
         {
-            driver.Url = baseURL + "/login_page.php";
+            driver.Url = baseURL;
             driver.FindElement(By.Name("username")).SendKeys("administrator");
             driver.FindElement(By.Name("password")).SendKeys("root");
             driver.FindElement(By.XPath("//input[@value='Войти']")).Click();

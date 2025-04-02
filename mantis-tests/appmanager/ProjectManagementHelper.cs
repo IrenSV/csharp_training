@@ -61,7 +61,7 @@ namespace mantis_tests
         }
         private ProjectManagementHelper ProjectCreation()
         {
-            driver.FindElement(By.XPath("//input[@value='Создать новый проект']")).Click();
+            driver.FindElement(By.XPath("//button[@type='submit']")).Click();
             return this;
         }
 
