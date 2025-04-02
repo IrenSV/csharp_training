@@ -77,12 +77,20 @@ namespace mantis_tests
             driver.FindElement(By.XPath("//input[@value='Добавить проект']")).Click();
             return this;
         }
+        public void APICreate(AccountData account, ProjectData project)
+        {
+            Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
+            Mantis.ProjectData projectName = new Mantis.ProjectData();
+            client.mc_project_add(account.Name, account.Password, projectName);
+        }
+
         private ProjectManagementHelper CheckProjects()
         {
             if (OpenProjectList())
             {
+                AccountData account = new AccountData("administrator", "root");
                 ProjectData project = new ProjectData("Новый проект");
-                Create(project);
+                APICreate(account, project);
             }
             return this;
         }
