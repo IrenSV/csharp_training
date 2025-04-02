@@ -8,12 +8,24 @@ using NUnit.Framework;
 namespace mantis_tests
 {
     [TestFixture]
-    public class AddNewIssue : TestBase
+    public class AddNewIssueTests : TestBase
     {
         [Test]
         public void AddNewIssue()
         {
-            app.API.CreateNewIssue();
+            AccountData account = new AccountData("administrator", "root");
+            
+            ProjectDataId projectId = new ProjectDataId()
+            {
+                Id = "1"
+            };
+            IssueData issue = new IssueData()
+            {
+                Summary = "some short text",
+                Description = "some long text",
+                Category = "General"
+            };
+            app.API.CreateNewIssue(account, projectId, issue);
         }
     }
 }

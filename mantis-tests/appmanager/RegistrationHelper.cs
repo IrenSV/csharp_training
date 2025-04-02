@@ -26,7 +26,7 @@ namespace mantis_tests
 
         private void OpenMainPage()
         {
-            manager.Driver.Url = "http://localhost/mantisbt-2.2.0/login_page.php";
+            manager.Driver.Url = "http://localhost/mantisbt-2.26.4/login_page.php";
         }
         private void OpenRegistrationForm()
         {

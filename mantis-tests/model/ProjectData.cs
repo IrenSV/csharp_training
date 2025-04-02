@@ -13,6 +13,8 @@ namespace mantis_tests
         {
             Name = name;
         }
+
         public string Name { get; set; }
+
     }
 }

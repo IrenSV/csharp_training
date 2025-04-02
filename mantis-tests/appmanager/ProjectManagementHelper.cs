@@ -17,7 +17,6 @@ namespace mantis_tests
             ProjectCreation();
             FillProjectForm(project);
             SubmitProjectCreation();
-            ReturnPageProjectManagement();
             return this;
         }
 
@@ -56,13 +55,13 @@ namespace mantis_tests
         }
         private ProjectManagementHelper OpenPageProjectManagement()
         {
-            driver.FindElement(By.LinkText("управление")).Click();
-            driver.FindElement(By.LinkText("Управление проектами")).Click();
+            driver.FindElement(By.LinkText("Управление")).Click();
+            driver.FindElement(By.LinkText("Проекты")).Click();
             return this;
         }
         private ProjectManagementHelper ProjectCreation()
         {
-            driver.FindElement(By.XPath("//input[@value='создать новый проект']")).Click();
+            driver.FindElement(By.XPath("//input[@value='Создать новый проект']")).Click();
             return this;
         }
 
@@ -76,11 +75,6 @@ namespace mantis_tests
         private ProjectManagementHelper SubmitProjectCreation()
         {
             driver.FindElement(By.XPath("//input[@value='Добавить проект']")).Click();
-            return this;
-        }
-        private ProjectManagementHelper ReturnPageProjectManagement()
-        {
-            driver.FindElement(By.LinkText("Продолжить")).Click();
             return this;
         }
         private ProjectManagementHelper CheckProjects()
