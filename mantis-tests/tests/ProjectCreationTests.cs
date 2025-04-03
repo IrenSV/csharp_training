@@ -17,14 +17,9 @@ namespace mantis_tests
         [Test]
         public void ProjectCreationTest()
         {
-            ProjectData project = new ProjectData("Проект1");
+            ProjectData project = new ProjectData(GenerateRandomString(10));
 
             List<ProjectData> oldProjects = app.Projects.GetProjectList();
-            //AccountData existingProjects = project.Find(x => x.Name == project.Name);
-            //if (existingProjects != null)
-            //{
-            //    app.Projects.Remove(existingProjects);
-            //}
 
             app.Projects.Create(project);
 

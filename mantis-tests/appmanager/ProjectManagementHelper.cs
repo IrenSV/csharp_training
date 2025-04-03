@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
@@ -109,5 +110,30 @@ namespace mantis_tests
         {
             return driver.FindElements(By.XPath("//div[@id='main-container']/div[2]/div[2]/div/div/div[2]/div[2]/div/div[2]/table/tbody/tr")).Count;
         }
+
+        //public List<ProjectData> GetProjectListAPI()
+        //{
+        //    var projectsList = new List<ProjectData>();
+        //    Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
+        //    var projects = client.mc_projects_get_user_accessible("administrator", "root");
+        //    foreach (var project in projects)
+        //    {
+        //        string projectName = project.name;
+
+        //        projectsList.Add(new ProjectData(projectName));
+        //    }
+        //    return new List<ProjectData>(projectsList);
+        //}
+        ////public ProjectManagementHelper CheackNameProject(ProjectData project)
+        //{
+        //    List<ProjectData> projectsNameApi = GetProjectListAPI();
+        //    ProjectData existingProject = projectsNameApi.Find(x => x.Name == project.Name);
+        //    if (existingProject != null)
+        //    {
+        //        OpenPageProjectManagement();
+        //        driver.FindElement(By.CssSelector(project.Name)).Click();
+        //    }
+        //    return this;
+        //}
     }
 }
