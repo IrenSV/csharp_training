@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using OpenQA.Selenium.Support.UI;
+using LinqToDB.Mapping;
 
 namespace WebAddressbookTests
 {
@@ -17,12 +19,18 @@ namespace WebAddressbookTests
 
             app.Contacts.AddAnyContactToAnyGroup();
 
-            GroupData group = GroupData.GetAll()[0];
+            List<GroupContactRelation> gcrs = GroupContactRelation.GetAll();
+            string groupId, contactId;
+            GroupContactRelation gcr = gcrs[0];
+            groupId = gcr.GroupId;
+            contactId = gcr.ContactId;
+            GroupData group = GroupData.GetAll().FirstOrDefault(g => g.Id == groupId);
+
             List<ContactData> oldList = group.GetContacts();
 
-            ContactData contact = oldList[0];
-
-            app.Contacts.RemovalContactFromGroup(contact, group);
+            app.Contacts.SelectGroupToRemoval(group.Name);
+            app.Contacts.SelectContactToRemoval(contactId);
+            app.Contacts.CommitRemovalContactFromGroup();
 
             List<ContactData> newList = group.GetContacts();
             oldList.RemoveAt(0);

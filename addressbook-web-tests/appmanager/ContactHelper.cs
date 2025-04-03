@@ -10,6 +10,7 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using System.Text.RegularExpressions;
 using Google.Protobuf.WellKnownTypes;
+using Microsoft.Office.Interop.Excel;
 
 
 
@@ -255,17 +256,18 @@ namespace WebAddressbookTests
                 .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
         }
 
-        private void SelectGroupToRemoval(string name)
+        public void SelectGroupToRemoval(string name)
         {
+            manager.Navigator.GoToHomePage();
             new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(name);
         }
 
-        private void SelectContactToRemoval(string contactId)
+        public void SelectContactToRemoval(string contactId)
         {
             driver.FindElement(By.Id(contactId)).Click();
         }
 
-        private void CommitRemovalContactFromGroup()
+        public void CommitRemovalContactFromGroup()
         {
             driver.FindElement(By.Name("remove")).Click();
         }
@@ -277,7 +279,7 @@ namespace WebAddressbookTests
             int contacts = GetContactCount();
             if (contacts == 0)
             {
-                ContactData newContact = new ContactData("aa", "bb");
+                ContactData newContact = new ContactData(GenerateRandomString(10), GenerateRandomString(10));
                 Create(newContact);
             }
         }
