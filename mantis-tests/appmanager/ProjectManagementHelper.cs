@@ -13,41 +13,14 @@ namespace mantis_tests
         public ProjectManagementHelper Create(ProjectData project)
         {
             OpenPageProjectManagement();
-            //CheckNameProject(project);
             ProjectCreation();
             FillProjectForm(project);
             SubmitProjectCreation();
             return this;
         }
-
-        //private ProjectManagementHelper CheckNameProject(ProjectData project)
-        //{
-        //    if (OpenNameList())
-        //    {
-        //        if (OpenNameList(project))
-        //        {
-        //            Remove();
-        //        }
-        //    }
-        //    return this;
-        //}
-        //private bool OpenNameList()
-        //{
-        //    return IsElementPresent(By.XPath("//div[@id='main-container']/div[2]/div[2]/div/div/div[2]/div[2]/div/div/table/tbody/tr"));
-        //}
-        //private bool OpenNameList(ProjectData project)
-        //{
-        //    return OpenNameList() && GetProjectName() == project.Name;
-        //}
-        //private string GetProjectName()
-        //{
-        //    string text = driver.FindElement(By.XPath("//div[@id='main-container']/div[2]/div[2]/div/div/div[2]/div[2]/div/div/table/tbody/tr/td/a")).Text;
-        //    return text;
-        //}
         public ProjectManagementHelper Remove(int v)
         {
             OpenPageProjectManagement();
-            CheckProjects();
             SelectProject(v);
             RemoveProject();
             SubmitRemoveProject();
@@ -75,6 +48,7 @@ namespace mantis_tests
         private ProjectManagementHelper SubmitProjectCreation()
         {
             driver.FindElement(By.XPath("//input[@value='Добавить проект']")).Click();
+            projectCash = null;
             return this;
         }
         public void APICreate(AccountData account, ProjectData project)
@@ -85,13 +59,7 @@ namespace mantis_tests
             client.mc_project_add(account.Name, account.Password, projectData);
         }
 
-        private ProjectManagementHelper CheckProjects()
-        {
-            OpenProjectList();
-            driver.FindElement(By.LinkText("Проекты")).Click();
-            return this;
-        }
-        private void OpenProjectList()
+        public ProjectManagementHelper CheckProjects()
         {
             Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
             var projects = client.mc_projects_get_user_accessible("administrator", "root");
@@ -101,8 +69,8 @@ namespace mantis_tests
                 ProjectData project = new ProjectData("Новый проект");
                 APICreate(accountName, project);
             }
+            return this;
         }
-
         private ProjectManagementHelper SelectProject(int index)
         {
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
@@ -117,7 +85,29 @@ namespace mantis_tests
         private ProjectManagementHelper SubmitRemoveProject()
         {
             driver.FindElement(By.XPath("//input[@value='Удалить проект']")).Click();
+            projectCash = null;
             return this;
+        }
+        private List<ProjectData> projectCash = null;
+        public List<ProjectData> GetProjectList()
+        {
+            if (projectCash == null)
+            {
+                projectCash = new List<ProjectData>();
+                OpenPageProjectManagement();
+                ICollection<IWebElement> elements = driver.FindElements(By.XPath("//div[@id='main-container']/div[2]/div[2]/div/div/div[2]/div[2]/div/div[2]/table/tbody/tr"));
+                foreach (IWebElement element in elements)
+                {
+                    String collectName = element.FindElement(By.XPath("td[1]/a")).Text;
+
+                    projectCash.Add(new ProjectData(collectName));
+                }
+            }
+            return new List<ProjectData>(projectCash);
+        }
+        public int GetProjectCount()
+        {
+            return driver.FindElements(By.XPath("//div[@id='main-container']/div[2]/div[2]/div/div/div[2]/div[2]/div/div[2]/table/tbody/tr")).Count;
         }
     }
 }
