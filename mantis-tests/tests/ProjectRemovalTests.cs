@@ -13,13 +13,13 @@ namespace mantis_tests
         {
             app.Projects.CheckProjects();
 
-            List<ProjectData> oldProjects = app.Projects.GetProjectList();
+            List<ProjectData> oldProjects = app.Projects.GetProjectListAPI();
 
             app.Projects.Remove(1);
 
             Assert.AreEqual(oldProjects.Count - 1, app.Projects.GetProjectCount());
 
-            List<ProjectData> newProjects = app.Projects.GetProjectList();
+            List<ProjectData> newProjects = app.Projects.GetProjectListAPI();
             oldProjects.RemoveAt(0);
             oldProjects.Sort();
             newProjects.Sort();

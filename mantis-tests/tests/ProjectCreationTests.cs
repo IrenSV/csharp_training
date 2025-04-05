@@ -19,13 +19,13 @@ namespace mantis_tests
         {
             ProjectData project = new ProjectData(GenerateRandomString(10));
 
-            List<ProjectData> oldProjects = app.Projects.GetProjectList();
+            List<ProjectData> oldProjects = app.Projects.GetProjectListAPI();
 
             app.Projects.Create(project);
 
             Assert.AreEqual(oldProjects.Count + 1, app.Projects.GetProjectCount());
 
-            List<ProjectData> newProjects = app.Projects.GetProjectList();
+            List<ProjectData> newProjects = app.Projects.GetProjectListAPI();
             oldProjects.Add(project);
             oldProjects.Sort();
             newProjects.Sort();
